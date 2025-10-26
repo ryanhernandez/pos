@@ -1,8 +1,10 @@
 version: '3.8'
 services:
-  server:
-    build: .
-    image: pos-server:local
+  pos-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: pos-api:local
     ports:
       - "5000:80"
     volumes:

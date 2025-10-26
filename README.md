@@ -10,12 +10,12 @@ Structure highlights:
 Run locally (development):
 
 1. Ensure .NET 8 SDK is installed.
-2. From `/Server`:
+2. From the repository root you can run the API project directly:
 
 ```powershell
 dotnet restore
-dotnet ef database update
-dotnet run
+dotnet ef database update -p src/pos-api -s src/pos-api
+dotnet run --project src/pos-api
 ```
 
 Open GraphQL playground at: http://localhost:5000/graphql (or the port printed by dotnet run). Health check: GET /health
@@ -26,7 +26,7 @@ Docker (build & run):
 docker compose up --build
 ```
 
-This will build and run the API. The SQLite file is persisted to a Docker volume named `pos_data`.
+This will build and run the API using the `Dockerfile` in the repository root that targets the `src/pos-api` project. The SQLite file is persisted to a Docker volume named `pos_data`.
 
 GraphQL examples
 ----------------
@@ -79,7 +79,12 @@ query {
 
 Notes & how-to:
 - Add new modules by following `Modules/Inventory` pattern: create Domain, Infrastructure, GraphQL folders and an `XModule.cs` to register DI types.
-- Use EF Core migrations: `dotnet ef migrations add InitialCreate -p Server -s Server` and `dotnet ef database update -p Server -s Server`.
+-- Use EF Core migrations: from the repo root run
+
+```
+dotnet ef migrations add InitialCreate -p src/pos-api -s src/pos-api
+dotnet ef database update -p src/pos-api -s src/pos-api
+```
 
 Run tests from repo root
 ------------------------

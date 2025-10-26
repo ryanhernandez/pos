@@ -2,12 +2,12 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
 # copy csproj and restore as distinct layers
-COPY ./Server.csproj ./
-RUN dotnet restore "Server.csproj"
+COPY src/pos-api/pos-api.csproj ./src/pos-api/
+RUN dotnet restore ./src/pos-api/pos-api.csproj
 
-# copy everything else and build
+# copy everything else and publish
 COPY . ./
-RUN dotnet publish "Server.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish ./src/pos-api/pos-api.csproj -c Release -o /app/publish /p:UseAppHost=false
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
 WORKDIR /app
@@ -23,4 +23,4 @@ VOLUME ["/app/data"]
 
 EXPOSE 80
 
-ENTRYPOINT ["dotnet", "Server.dll"]
+ENTRYPOINT ["dotnet", "pos-api.dll"]
