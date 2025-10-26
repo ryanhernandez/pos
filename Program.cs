@@ -21,13 +21,13 @@ builder.Services.AddInventoryModule();
 builder.Services.AddGraphQLServer()
     .AddQueryType(d => d.Name("Query"))
     .AddMutationType(d => d.Name("Mutation"))
-    .AddType<DateTimeType>();
+    .AddType<Server.Shared.GraphQL.DateTimeType>();
 
 var app = builder.Build();
 
 // Ensure DB directory exists and apply migrations at startup (development convenience)
-var dbPath = Path.GetFullPath(configuration.GetConnectionString("Sqlite")?.Replace("Data Source=", "") ?? "./data/pos.db");
-Directory.CreateDirectory(Path.GetDirectoryName(dbPath) ?? ".");
+var dbPath = System.IO.Path.GetFullPath(configuration.GetConnectionString("Sqlite")?.Replace("Data Source=", "") ?? "./data/pos.db");
+Directory.CreateDirectory(System.IO.Path.GetDirectoryName(dbPath) ?? ".");
 
 using (var scope = app.Services.CreateScope())
 {

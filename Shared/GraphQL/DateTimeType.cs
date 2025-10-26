@@ -15,19 +15,24 @@ namespace Server.Shared.GraphQL
             throw new SerializationException("Unable to parse result to DateTime", this);
         }
 
-        public override System.DateTime ParseLiteral(StringValueNode valueSyntax)
+        protected override System.DateTime ParseLiteral(StringValueNode valueSyntax)
         {
             return System.DateTime.Parse(valueSyntax.Value);
         }
 
-        public override object? Serialize(System.DateTime runtimeValue)
+        public override object? Serialize(object? runtimeValue)
         {
-            return runtimeValue.ToString("o");
+            if (runtimeValue is System.DateTime dt)
+            {
+                return dt.ToString("o");
+            }
+
+            return null;
         }
 
-        protected override System.DateTime ParseValue(StringValueNode valueSyntax)
+        protected override StringValueNode ParseValue(System.DateTime runtimeValue)
         {
-            return System.DateTime.Parse(valueSyntax.Value);
+            return new StringValueNode(runtimeValue.ToString("o"));
         }
     }
 }
