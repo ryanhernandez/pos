@@ -17,7 +17,7 @@
   
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Server\Server.csproj" />
+    <ProjectReference Include="..\..\src\pos-api\pos-api.csproj" />
   </ItemGroup>
 
 </Project>
