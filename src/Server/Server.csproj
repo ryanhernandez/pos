@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <LangVersion>12</LangVersion>
+    <!-- Avoid duplicate assembly attributes when building test projects that auto-generate attributes -->
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.0">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="HotChocolate.AspNetCore" Version="13.0.2" />
+    <PackageReference Include="HotChocolate.Data" Version="13.0.2" />
+    <PackageReference Include="HotChocolate.Types" Version="13.0.2" />
+  </ItemGroup>
+
+  <!-- Include source files that live at repository root (Program.cs) and in Modules/ and Shared/ folders -->
+  <ItemGroup>
+    <Compile Include="..\Program.cs" />
+    <Compile Include="..\Modules\**\*.cs" />
+    <Compile Include="..\Shared\**\*.cs" />
+    <None Include="..\appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>
