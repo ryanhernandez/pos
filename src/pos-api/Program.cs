@@ -53,12 +53,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "pos-api v1"));
 }
 
-app.UseRouting();
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllers();
-    endpoints.MapGraphQL("/graphql");
-});
+// Prefer minimal route registrations: map controllers and GraphQL directly on the app.
+// This avoids the older UseEndpoints pattern and satisfies the ASP0014 analyzer.
+app.MapControllers();
+app.MapGraphQL("/graphql");
 
 // Minimal health endpoint for quick checks (keeps previous /health route)
 app.MapGet("/health", () => Results.Ok(new { status = "Healthy" }));

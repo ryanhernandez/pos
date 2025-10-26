@@ -19,17 +19,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 
-  <!-- Include existing source files from src/Server (we'll rename/move later if desired) -->
+  <!-- Project now contains its own sources under src/pos-api; rely on SDK implicit compile items -->
   <ItemGroup>
-    <!-- Include actual sources from src/Server but exclude generated/obj and the original Program.cs to avoid duplicate top-level statements -->
-    <Compile Include="..\Server\**\*.cs">
-      <Exclude>..\Server\obj\**\*;..\Server\bin\**\*;</Exclude>
-    </Compile>
-    <Compile Remove="..\Server\Program.cs" />
-    <!-- Ensure any generated .cs files under obj or bin are not compiled -->
-    <Compile Remove="..\Server\obj\**\*.cs" />
-    <Compile Remove="..\Server\bin\**\*.cs" />
-    <None Include="..\Server\appsettings.json">
+    <None Include="appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
