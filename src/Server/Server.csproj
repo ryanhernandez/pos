@@ -19,12 +19,10 @@
 
   <!-- Include source files that live at repository root (Program.cs) and in Modules/ and Shared/ folders -->
   <ItemGroup>
-    <Compile Include="..\Program.cs" />
-    <Compile Include="..\Modules\**\*.cs" />
-    <Compile Include="..\Shared\**\*.cs" />
-    <None Include="..\appsettings.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+      <!-- Use SDK's default implicit Compile items for .cs files in this folder -->
+      <None Include="appsettings.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
   </ItemGroup>
 
 </Project>
